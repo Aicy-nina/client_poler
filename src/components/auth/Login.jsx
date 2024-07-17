@@ -1,14 +1,15 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useState } from "react";
+import axios from "axios";
 import "./css/login.css";
+import { useNavigate } from "react-router-dom";
 
-function Login({props}) {
-
+function Login() {
   const [formData, setFormData] = useState({
-    email: '',
-    password: '',
+    email: "",
+    password: "",
   });
 
+  const navigate = useNavigate();
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -21,21 +22,18 @@ function Login({props}) {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const res = await axios.post('http://127.0.0.1:5000/login', formData, {
+      const res = await axios.post("http://127.0.0.1:5000/login", formData, {
         headers: {
-          'Content-Type': 'application/json',
-          
+          "Content-Type": "application/json",
         },
-        
       });
-      localStorage.setItem('token', res.data.access_token);
-      console.log('Token:', res.data.access_token);
-      
+      localStorage.setItem("token", res.data.access_token);
+      console.log("Token:", res.data.access_token);
+      navigate("/dashboard"); // Redirect to "/dashboard" after successful login
     } catch (error) {
-        console.log("error");
+      console.error("Error:", error);
     }
   };
-
 
   return (
     <div className="wrapper">
@@ -57,8 +55,9 @@ function Login({props}) {
               placeholder="Password"
             />
           </div>
-          <button className='form' type="submit">Login</button>
-        
+          <button className="form" type="submit">
+            Login
+          </button>
         </form>
       </div>
     </div>
