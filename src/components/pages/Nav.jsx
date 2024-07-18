@@ -24,7 +24,7 @@ function Nav() {
             isLoggedIn ? (
               <Navigate to="/dashboard" />
             ) : (
-              <Navigate to="/signup" />
+              <Navigate to="/login" />
             )
           }
         />
